@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jofa.UserFactory;
 import com.jofa.simpleuser.SimpleUser;
+import com.jofa.user.model.User;
 
 @Controller
 @RequestMapping("/")
@@ -27,6 +29,7 @@ public class TicTatorController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(SimpleUser simpleJack) {
 
+		User user = UserFactory.createUser(simpleJack);
 		System.out.println(simpleJack.getUsername());
 		return VIEW_INDEX;
 
