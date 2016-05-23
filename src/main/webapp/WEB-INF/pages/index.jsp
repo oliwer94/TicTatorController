@@ -59,6 +59,7 @@
 
 		<div class="starter-template">
 			<h1>GAME WINDOW</h1>
+			<h1>${sessionScope.Admin} </h1>
 		</div>
 
 	</div>
