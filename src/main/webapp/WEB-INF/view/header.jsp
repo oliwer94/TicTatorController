@@ -15,6 +15,7 @@
 		<c:choose>
 			<c:when test="${not empty sessionScope.user}">
 				<div class="navbar-collapse collapse" id="navbar-main">
+						<a style="margin-top:8px;" type="button" onclick="location.href='${pageContext.request.contextPath}/logout'" class="btn btn-danger pull-right">Log out</a>
 					<ul class="nav navbar-nav pull-right">
 						<li><a>Welcome back <c:out
 									value="${sessionScope.user.username}" /></a></li>
@@ -23,19 +24,15 @@
 			</c:when>
 			<c:otherwise>
 				<div class="navbar-collapse collapse" id="navbar-main">
-					<c:if test="${not empty loginFail}">
-						<ul class="nav navbar-nav pull-right">
-							<div class="alert alert-danger">
-								<strong>Login failure</strong> Wrong username and/or password
-							</div>
-						</ul>
-					</c:if>
 					<ul class="nav navbar-nav pull-right">
 						<li><a href="#">Not registered?</a></li>
 					</ul>
 					<form:form class="navbar-form navbar-right" role="search"
 						modelAttribute="simpleUser"
 						action="${pageContext.request.contextPath}/login" method="POST">
+						<c:if test="${not empty loginFail}">
+							<a style="color: red;"> Wrong username and/or password</a>
+						</c:if>
 						<div class="form-group">
 							<form:input class="form-control" path="username"></form:input>
 						</div>
