@@ -6,7 +6,10 @@
 	<definition name="index" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/view/pages/index.jsp"></put-attribute>
 	</definition>
-	<definition name="index2" extends="base.definition">
-		<put-attribute name="body" value="/WEB-INF/view/pages/index2.jsp"></put-attribute>
+	<definition name="400" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/view/pages/400.jsp"></put-attribute>
+	</definition>
+	<definition name="503" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/view/pages/503.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

@@ -13,15 +13,23 @@
 			<a class="navbar-brand" href="#">TicTator</a>
 		</div>
 		<c:choose>
-			<c:when	test="${not empty sessionScope.user}">
+			<c:when test="${not empty sessionScope.user}">
 				<div class="navbar-collapse collapse" id="navbar-main">
 					<ul class="nav navbar-nav pull-right">
-						<li><a>Welcome back <c:out value="${sessionScope.user.username}"/></a></li>
+						<li><a>Welcome back <c:out
+									value="${sessionScope.user.username}" /></a></li>
 					</ul>
 				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="navbar-collapse collapse" id="navbar-main">
+					<c:if test="${not empty loginFail}">
+						<ul class="nav navbar-nav pull-right">
+							<div class="alert alert-danger">
+								<strong>Login failure</strong> Wrong username and/or password
+							</div>
+						</ul>
+					</c:if>
 					<ul class="nav navbar-nav pull-right">
 						<li><a href="#">Not registered?</a></li>
 					</ul>
