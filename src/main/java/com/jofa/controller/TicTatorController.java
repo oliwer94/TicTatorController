@@ -68,6 +68,7 @@ public class TicTatorController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, SimpleUser simpleJack) throws IOException 
 	{
+		//controllerService.removeFromOnlineList(request, loggedInUser, matchMakingServiceURL+"AddToOnlineUserList");
 		request.getSession(true).removeAttribute("user");
 		return VIEW_INDEX;
 	}
