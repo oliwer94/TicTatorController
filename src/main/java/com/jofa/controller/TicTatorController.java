@@ -24,12 +24,15 @@ import com.jofa.simpleuser.SimpleUser;
 public class TicTatorController {
 	private static ControllerService controllerService = new ControllerService();
 	private static final String VIEW_INDEX = "index";
+	private static final String VIEW_GAME = "index3";
 
 	private final String userServiceURL = "http://192.168.220.128:8080/TicTatorUser/user/";
 	private final String matchMakingServiceURL = "http://192.168.220.128:8080/TicTatorMatchMaking/";
 
 	private final static org.slf4j.Logger logger = LoggerFactory.getLogger(TicTatorController.class);
 
+	
+	//Not using this
 	@RequestMapping(method = RequestMethod.GET)
 	public String welcomeW(Model model) {
 		model.addAttribute("simpleUser", new SimpleUser());
@@ -37,11 +40,23 @@ public class TicTatorController {
 		return VIEW_INDEX;
 	}
 
+	//Simple GET from the userService 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public void welcome(int id) {
-		controllerService.GetJsonSimpleUser(userServiceURL, id);
+		
+		SimpleUser simpleJack = controllerService.GetJsonSimpleUser(userServiceURL, id);
 	}
 
+	//POST method for sending SimpleUser object to userService for adding to DB
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(HttpServletRequest request, SimpleUser simpleJack) throws IOException 
+	{
+		controllerService.postVoidMethod(request, simpleJack, userServiceURL + "registerUser");
+
+		return VIEW_INDEX;
+	}	
+	
+	//POST method for sending SimpleUser object to userService to check if this user is registered or not
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest request, SimpleUser simpleJack) throws IOException {
 		
@@ -49,18 +64,29 @@ public class TicTatorController {
 
 		if(loggedInUser != null)
 		{
-			//controllerService.addToOnlineList(request, loggedInUser, matchMakingServiceURL+"AddToOnlineUserList");
+			//controllerService.postVoidMethod(request, loggedInUser, matchMakingServiceURL+"AddToOnlineUserList");
 		}
 		
 		return VIEW_INDEX;
 	}
-
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(HttpServletRequest request, SimpleUser simpleJack) throws IOException 
-	{
-		controllerService.registerUser(request, simpleJack, userServiceURL + "registerUser");
-
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public String logout(HttpServletRequest request, SimpleUser simpleJack) throws IOException {		
+		
+		//controllerService.postVoidMethod(request, simpleJack, matchMakingServiceURL+"RemoveFromList");
+				
 		return VIEW_INDEX;
-	}	
+	}
+	
+	
+	@RequestMapping(value = "/play", method = RequestMethod.POST)
+	public String displayGameView() throws IOException 
+	{	
+		//controllerService.postVoidMethod(request, simpleJack, matchMakingServiceURL+"ChangeStateToSearching");		
+		
+		return VIEW_GAME;
+	}
+
+	
 
 }

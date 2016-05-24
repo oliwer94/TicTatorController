@@ -19,14 +19,13 @@ public class ControllerService {
 	public SimpleUser PostJsonSimpleUser(HttpServletRequest request, SimpleUser simpleJack, String URL) throws IOException 
 	{
 		RestTemplate restTemplate = new RestTemplate();
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		HttpEntity<SimpleUser> entity = new HttpEntity<SimpleUser>(simpleJack, headers);
 
-		SimpleUser returnedUser = (SimpleUser) restTemplate.postForObject(URL, entity, SimpleUser.class);
-		
-		return returnedUser;
+		return (SimpleUser) restTemplate.postForObject(URL, entity, SimpleUser.class);		
 	}
 	
 	public SimpleUser GetJsonSimpleUser(String URL,int id)
@@ -40,21 +39,14 @@ public class ControllerService {
 	{
 		simpleJack = PostJsonSimpleUser(request, simpleJack, URL);		
 		
-		request.getSession(true).setAttribute("Admin", simpleJack.getAdmin());
+		request.getSession().setAttribute("user", simpleJack);
 		
 		return simpleJack;
-	}
+	}	
 	
-	public  void registerUser(HttpServletRequest request, SimpleUser simpleJack, String URL) throws IOException
+	public void postVoidMethod(HttpServletRequest request, SimpleUser simpleJack, String URL) throws IOException
 	{
-		simpleJack = PostJsonSimpleUser(request, simpleJack, URL);		
+		PostJsonSimpleUser(request, simpleJack, URL);		
 	}
-	
-	public  void addToOnlineList(HttpServletRequest request, SimpleUser simpleJack, String URL) throws IOException
-	{
-		simpleJack = PostJsonSimpleUser(request, simpleJack, URL);		
-	}
-	
-	
 
 }
