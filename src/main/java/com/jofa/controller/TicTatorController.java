@@ -1,6 +1,8 @@
 package com.jofa.controller;
 
 import java.io.IOException;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 
 import com.jofa.registration.RegistrationBean;
@@ -39,22 +42,18 @@ public class TicTatorController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, SimpleUser simpleJack, Model model) throws IOException {
+	public String login(HttpServletRequest request, SimpleUser simpleUser, Model model) throws IOException {
 		try {
-			SimpleUser loggedInUser = userService.logInUser(simpleJack, userServiceURL + "login");
+			SimpleUser loggedInUser = userService.logInUser(simpleUser, userServiceURL + "login");
 			//controllerService.addToOnlineList(request, loggedInUser, matchMakingServiceURL+"AddToOnlineUserList");
-			if(loggedInUser != null)
-			{
-				request.getSession(true).setAttribute("user", simpleJack);
-				return VIEW_INDEX;
-			} else {
-				model.addAttribute("loginFail", simpleJack);
-				index(model);
-			}
 		} catch (ResourceAccessException e) {
 			logger.error(e.getMessage());
 			return SERVICE_UNAVAILABLE;
+		} catch (HttpClientErrorException e) {
+			model.addAttribute("loginFail", simpleUser);
+			return VIEW_INDEX;
 		}
+		request.getSession(true).setAttribute("user", simpleUser);
 		return VIEW_INDEX;
 	}
 
@@ -65,5 +64,12 @@ public class TicTatorController {
 
 		return VIEW_INDEX;
 	}	
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, SimpleUser simpleJack) throws IOException 
+	{
+		request.getSession(true).removeAttribute("user");
+		return VIEW_INDEX;
+	}
 
 }
