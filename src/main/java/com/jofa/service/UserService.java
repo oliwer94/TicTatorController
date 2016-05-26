@@ -53,7 +53,8 @@ public class UserService {
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<SimpleUser> entity = new HttpEntity<SimpleUser>(simpleUser, headers);
 		ResponseEntity response = PostJson(entity, URL, simpleUser.getClass());	
-		
+		System.out.println("executing registerUser");
+
 		if (response.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
 			throw new UserPrincipalNotFoundException(simpleUser.getUsername());
 		}

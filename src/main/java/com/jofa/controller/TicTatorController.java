@@ -60,6 +60,7 @@ public class TicTatorController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String register(HttpServletRequest request, SimpleUser simpleJack) throws IOException 
 	{
+		System.out.println("executing register");
 		userService.registerUser(request, simpleJack, userServiceURL + "registerUser");
 
 		return VIEW_INDEX;
