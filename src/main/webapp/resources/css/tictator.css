@@ -1,7 +1,20 @@
 body {
-  padding-top: 50px;
+	min-height: 610px;
+	padding-top: 50px;
 }
+
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
+	padding: 40px 15px;
+	text-align: center;
+}
+.tictac td { 
+	    border-radius: 5px;
+	    background-color: #369;
+	    color: white;
+	    border: 10px solid white;
+		height: 113px;
+	}
+	
+.tictac td:hover { 
+    background-color: grey;
 }

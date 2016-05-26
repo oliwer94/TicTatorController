@@ -10,7 +10,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">TicTator</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}">TicTator</a>
 		</div>
 		<c:choose>
 			<c:when test="${not empty sessionScope.user}">
