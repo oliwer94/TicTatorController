@@ -8,18 +8,16 @@
                 <h4 class="modal-title">Registration form</h4>
             </div>
             <div class="modal-body">
-                <form method="POST" action="#">
+                <form  role="search"
+						modelAttribute="simpleUser"
+						action="${pageContext.request.contextPath}/register" method="POST">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input type="username" class="form-control" id="username" name="username" placeholder="Enter username">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                        <input type="username" class="form-control" id="username" name="username" placeholder="Enter username" path="username">
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" path="password">
                     </div>
                     
                     <td><input id="button" type="submit" class="btn btn-default" name="submit" value="Sign-Up"></td>
