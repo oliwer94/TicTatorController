@@ -1,3 +1,4 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!-- Register Modal -->
 <div id="register-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -8,21 +9,25 @@
                 <h4 class="modal-title">Registration form</h4>
             </div>
             <div class="modal-body">
-                <form  role="search"
-						modelAttribute="simpleUser"
+                <form:form
+						modelAttribute="registerUser"
 						action="${pageContext.request.contextPath}/register" method="POST">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input type="username" class="form-control" id="username" name="username" placeholder="Enter username" path="username">
+                        <form:input type="text" class="form-control" id="username" name="username" placeholder="Enter username" path="username"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <form:input type="email" class="form-control" id="email" name="email" placeholder="Enter email" path="email"/>
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" path="password">
+                        <form:input type="password" class="form-control" id="password" name="password" placeholder="Enter password" path="password"/>
                     </div>
                     
                     <td><input id="button" type="submit" class="btn btn-default" name="submit" value="Sign-Up"></td>
 
-                </form>
+                </form:form>
 
 
             </div>

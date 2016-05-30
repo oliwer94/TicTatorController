@@ -21,7 +21,6 @@ import com.jofa.utils.LoginAttemptFactory;
 
 public class UserService
 {
-
 	private final static String userServiceURL = "http://192.168.71.128:8080/TicTatorUser/";
 
 	@SuppressWarnings("rawtypes")
@@ -35,7 +34,6 @@ public class UserService
 	@SuppressWarnings("rawtypes")
 	private static ResponseEntity getJson(String URL, Class<?> classType, String... args)
 	{
-		System.out.println("We about to do this");
 		RestTemplate restTemplate = new RestTemplate();
 		return restTemplate.getForEntity(URL, classType, args[0]);
 	}
@@ -46,7 +44,6 @@ public class UserService
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
-		System.out.println(entity.getBody().getUsername() + entity.getBody().getPassword());
 		ResponseEntity<User> response = PostJson(entity, userServiceURL + Constants.USER_SERVICE_AUTHORIZE,
 				user.getClass());
 		return (User) response.getBody();
@@ -57,7 +54,6 @@ public class UserService
 	{
 		ResponseEntity<User> response = getJson(userServiceURL + Constants.USER_SERVICE_FINDBYUSERNAME,
 				User.class, username);
-		System.out.println("we did it");
 		User user = (User) response.getBody();
 		if(user.getUsername()!=null) {
 			System.out.println("returned user har username: " + user.getUsername());
@@ -67,17 +63,18 @@ public class UserService
 		return user;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public static void registerUser(HttpServletRequest request, SimpleUser simpleUser) throws IOException
+	@SuppressWarnings({ "unchecked" })
+	public static boolean registerUser(HttpServletRequest request, User user) throws IOException
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<SimpleUser> entity = new HttpEntity<SimpleUser>(simpleUser, headers);
-		ResponseEntity response = PostJson(entity, userServiceURL, simpleUser.getClass());
-
-		if (response.getStatusCode().equals(HttpStatus.NOT_FOUND))
+		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
+		ResponseEntity<User> response = PostJson(entity, userServiceURL+ Constants.USER_SERVICE_REGISTER, User.class);
+		if (response.getStatusCode().equals(HttpStatus.OK))
 		{
-			throw new UserPrincipalNotFoundException(simpleUser.getUsername());
+			return true;
+		} else {
+			return false;
 		}
 	}
 

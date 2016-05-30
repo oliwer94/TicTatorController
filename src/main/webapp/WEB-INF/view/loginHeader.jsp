@@ -1,4 +1,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:if test="${empty sessionScope.currentUser}">
+		<c:import url="modals/register-modal.jsp"/>
+	</c:if>
 <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
@@ -13,7 +17,7 @@
 		</div>
 		<div class="navbar-collapse collapse" id="navbar-main">
 			<ul class="nav navbar-nav pull-right">
-				<li><a href="#">Not registered?</a></li>
+				<li><a data-toggle="modal" data-target="#register-modal">Not registered?</a></li>
 			</ul>
 			<form:form class="navbar-form navbar-right" id="form-login"
 				name="form-login" modelAttribute="currentUser"

@@ -22,7 +22,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
 
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-		System.out.println("trying to set user to session");
 		User user = UserService.findByUsername(authentication.getName());
 		request.getSession().setAttribute(Constants.CURRENT_USER, user);
 		response.sendRedirect("user/index");

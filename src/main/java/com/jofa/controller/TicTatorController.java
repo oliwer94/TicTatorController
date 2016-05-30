@@ -33,19 +33,17 @@ public class TicTatorController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, User user, Model model) throws IOException {
-		System.out.println("WE ARE IN 2");
 		model.addAttribute("currentUser", new User());
+		model.addAttribute("registerUser", new User("email","password","username"));
 		return Views.LOGIN_PAGE;
 	}
 	
-//	@RequestMapping(value = "/register", method = RequestMethod.POST)
-//	public String register(HttpServletRequest request, SimpleUser simpleJack) throws IOException 
-//	{
-//		System.out.println("WE ARE IN 4");
-//		UserService.registerUser(request, simpleJack);
-//
-//		return Views.VIEW_INDEX;
-//	}	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String register(HttpServletRequest request, User user) throws IOException 
+	{
+		UserService.registerUser(request, user);
+		return Views.REGISTER_SUCCESS;
+	}	
 	
 //	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 //	public String logout(HttpServletRequest request, User user) throws IOException 
@@ -59,7 +57,6 @@ public class TicTatorController {
 	@RequestMapping(value = "/user/index", method = RequestMethod.GET)
 	public String FAIL(HttpServletRequest request) throws IOException 
 	{
-		System.out.println("WE ARE IN 6");
 		return Views.INDEX_PAGE;
 	}
 
