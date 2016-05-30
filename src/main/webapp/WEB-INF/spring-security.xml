@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+						http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+
+	<security:authentication-manager id="authenticationManager" alias="authenticationManager">
+		<security:authentication-provider user-service-ref="loginService">
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<beans:bean id="loginSuccessHandler" class="com.jofa.service.loginservice.LoginSuccessHandler" />
+	<beans:bean id="loginFailureHandler" class="com.jofa.service.loginservice.LoginFailureHandler" />
+
+	<security:http pattern="/resources/**" security="none" />
+
+	<security:http auto-config="true" pattern="/**" authentication-manager-ref="authenticationManager">
+		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')" />
+		<security:form-login 
+			login-page="/login" 
+			authentication-failure-url="/login?error=true" 
+			default-target-url="/user/index" 
+			login-processing-url="/j_spring_security_check" 
+			always-use-default-target="true"
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-handler-ref="loginFailureHandler" />
+		<security:logout logout-url="/j_spring_security_logout" logout-success-url="/login" />
+	</security:http>
+
+	<authentication-manager>
+		<authentication-provider ref="customAuthenticationProvider" />
+	</authentication-manager>
+
+</beans:beans>

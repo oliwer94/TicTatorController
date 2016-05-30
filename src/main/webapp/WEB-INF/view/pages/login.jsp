@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-lg-offset-2 col-lg-8">
 
-click play to play
-		
+	this is where you login
+
 	</div>
 </div>

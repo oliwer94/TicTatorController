@@ -1,5 +1,7 @@
 package com.jofa.simpleuser;
 
+import com.jofa.model.User;
+
 public class SimpleUser {
 	private String username;
 	private String password;
@@ -32,4 +34,5 @@ public class SimpleUser {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+	
 }
