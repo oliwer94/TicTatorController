@@ -7,16 +7,22 @@
 		<put-attribute name="header" value="/WEB-INF/view/loginHeader.jsp"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/view/pages/login.jsp"></put-attribute>
 	</definition>
-	<definition name="index" extends="base.definition">
-		<put-attribute name="body" value="/WEB-INF/view/pages/index.jsp"></put-attribute>
+	<definition name="userIndex" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/view/pages/user/index.jsp"></put-attribute>
 	</definition>
-	<definition name="play" extends="base.definition">
-		<put-attribute name="body" value="/WEB-INF/view/pages/play.jsp"></put-attribute>
+	<definition name="userPlay" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/view/pages/user/userPlay.jsp"></put-attribute>
 	</definition>
 	<definition name="503" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/view/pages/503.jsp"></put-attribute>
 	</definition>
 	<definition name="registerSuccess" extends="base.definition">
 		<put-attribute name="body" value="/WEB-INF/view/pages/registerSuccess.jsp"></put-attribute>
+	</definition>
+	<definition name="403" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/view/pages/403.jsp"></put-attribute>
+	</definition>
+	<definition name="registerFail" extends="base.definition">
+		<put-attribute name="body" value="/WEB-INF/view/pages/registerFail.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

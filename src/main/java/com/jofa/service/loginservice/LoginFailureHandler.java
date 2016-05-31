@@ -15,6 +15,9 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.util.Assert;
 
+import com.jofa.service.UserService;
+import com.jofa.utils.LoginAttemptFactory;
+
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
 	protected String defaultFailureUrl = "/login";
@@ -28,6 +31,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
 			throws IOException, ServletException {
+		
+		UserService.saveLoginAttempt(LoginAttemptFactory.createFailedLoginAttemptFromRequest(request));
 		saveException(request, exception);
 		if (forwardToDestination) {
 			request.getRequestDispatcher(defaultFailureUrl).forward(request, response);

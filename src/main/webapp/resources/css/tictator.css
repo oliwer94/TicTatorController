@@ -18,3 +18,12 @@ body {
 .tictac td:hover { 
     background-color: grey;
 }
+
+.alert.alert-server {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.navbar-btn {
+	padding-top: 7px;
+}

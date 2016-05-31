@@ -1,10 +1,10 @@
 package com.jofa.service;
 
 import java.io.IOException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,19 +15,19 @@ import org.springframework.web.client.RestTemplate;
 
 import com.jofa.model.LoginAttempt;
 import com.jofa.model.User;
-import com.jofa.simpleuser.SimpleUser;
 import com.jofa.utils.Constants;
-import com.jofa.utils.LoginAttemptFactory;
+import com.jofa.utils.PropertiesUtil;
 
 public class UserService
 {
-	private final static String userServiceURL = "http://192.168.71.128:8080/TicTatorUser/";
+	private static String URL = PropertiesUtil.getInstance().getValue(Constants.U_SERVICE_URL_PROP);
 
 	@SuppressWarnings("rawtypes")
 	private static ResponseEntity PostJson(HttpEntity entity, String URL, Class<?> classType)
 			throws IOException, HttpClientErrorException
 	{
 		RestTemplate restTemplate = new RestTemplate();
+		System.out.println(URL);
 		return restTemplate.postForEntity(URL, entity, classType);
 	}
 
@@ -44,7 +44,7 @@ public class UserService
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
-		ResponseEntity<User> response = PostJson(entity, userServiceURL + Constants.USER_SERVICE_AUTHORIZE,
+		ResponseEntity<User> response = PostJson(entity, URL + Constants.U_SERVICE_AUTHORIZE,
 				user.getClass());
 		return (User) response.getBody();
 	}
@@ -52,11 +52,10 @@ public class UserService
 	@SuppressWarnings("unchecked")
 	public static User findByUsername(String username) throws IOException
 	{
-		ResponseEntity<User> response = getJson(userServiceURL + Constants.USER_SERVICE_FINDBYUSERNAME,
+		ResponseEntity<User> response = getJson(URL + Constants.U_SERVICE_FINDBYUSERNAME,
 				User.class, username);
 		User user = (User) response.getBody();
 		if(user.getUsername()!=null) {
-			System.out.println("returned user har username: " + user.getUsername());
 		} else {
 			System.out.println("returned user is empty");
 		}
@@ -69,7 +68,7 @@ public class UserService
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
-		ResponseEntity<User> response = PostJson(entity, userServiceURL+ Constants.USER_SERVICE_REGISTER, User.class);
+		ResponseEntity<User> response = PostJson(entity, URL+ Constants.U_SERVICE_REGISTER, User.class);
 		if (response.getStatusCode().equals(HttpStatus.OK))
 		{
 			return true;
@@ -78,19 +77,12 @@ public class UserService
 		}
 	}
 
-	public static void saveLoginAttempt(HttpServletRequest request, User user) throws IOException
+	public static void saveLoginAttempt(LoginAttempt loginAttempt) throws IOException
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		LoginAttempt loginAttempt = LoginAttemptFactory.createLoginAttemptFromRequest(request, user);
 		HttpEntity<LoginAttempt> entity = new HttpEntity<LoginAttempt>(loginAttempt, headers);
-		PostJson(entity, userServiceURL + Constants.USER_SERVICE_LOGINATTEMPT, loginAttempt.getClass());
+		PostJson(entity, URL + Constants.U_SERVICE_LOGINATTEMPT, loginAttempt.getClass());
 	}
-
-	// public void addToOnlineList(HttpServletRequest request, SimpleUser
-	// simpleJack, String URL) throws IOException
-	// {
-	// simpleJack = PostJson(request, simpleJack, URL);
-	// }
 
 }

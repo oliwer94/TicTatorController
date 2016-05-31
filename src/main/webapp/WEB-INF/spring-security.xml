@@ -15,11 +15,12 @@
 
 	<beans:bean id="loginSuccessHandler" class="com.jofa.service.loginservice.LoginSuccessHandler" />
 	<beans:bean id="loginFailureHandler" class="com.jofa.service.loginservice.LoginFailureHandler" />
+	<beans:bean id="logoutHandler" 		 class="com.jofa.service.LogoutService" />
 
 	<security:http pattern="/resources/**" security="none" />
 
 	<security:http auto-config="true" pattern="/**" authentication-manager-ref="authenticationManager">
-		<security:intercept-url pattern="/login" access="permitAll" />
+		<security:intercept-url pattern="/login" access="isAnonymous()" />
 		<security:intercept-url pattern="/register" access="permitAll" />
 		<security:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
 		<security:form-login 
@@ -30,7 +31,8 @@
 			always-use-default-target="true"
 			authentication-success-handler-ref="loginSuccessHandler"
 			authentication-failure-handler-ref="loginFailureHandler" />
-		<security:logout logout-url="/j_spring_security_logout" logout-success-url="/login" />
+		<security:logout logout-url="/j_spring_security_logout" success-handler-ref="logoutHandler" />
+		<security:access-denied-handler error-page="/403" />
 	</security:http>
 
 	<authentication-manager>

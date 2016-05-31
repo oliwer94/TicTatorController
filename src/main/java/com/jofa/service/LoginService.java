@@ -1,4 +1,4 @@
-package com.jofa.service.loginservice;
+package com.jofa.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.jofa.model.User;
-import com.jofa.service.UserService;
 
 @Service("loginService")
 public class LoginService implements UserDetailsService
