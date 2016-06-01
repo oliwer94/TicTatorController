@@ -27,7 +27,7 @@ function startGame(gameId, ip) {
 	}
 }
 
-function checkStatus(){
+function checkStatus(message){
 	if(message.data == "You are winner!") {
 		$('#gameStarted').remove();
 		$("#gameInfo").append('<div class="alert alert-success"><strong>Success!</strong> You won the game!</div>');
