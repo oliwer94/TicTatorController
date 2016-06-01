@@ -9,18 +9,7 @@ function startGame(gameId, ip) {
 			+ "/" + $('#username').val());
 	websocket.onmessage = function processMessage(message) {
 		console.log(message.data);
-		if(message.data == "You are winner!") {
-			$('#gameStarted').remove();
-			$("#gameInfo").append('<div class="alert alert-success"><strong>Success!</strong> You won the game!</div>');
-			var replayBtn = $('<button type="submit" class="btn btn-lg btn-primary center-block">Play again</button>');
-	        $("#replay").append(replayBtn);
-		}
-		if(message.data == "You are lose!") {
-			$('#gameStarted').remove();
-			$("#gameInfo").append('<div class="alert alert-danger"><strong>Bad!</strong> You lost the game!</div>');
-			var replayBtn = $('<button type="submit" class="btn btn-lg btn-primary center-block">Play again</button>');
-	        $("#replay").append(replayBtn);
-		}
+		checkStatus(message);
 		try {
 			var data = JSON.parse(message.data)["board"];
 
@@ -35,6 +24,27 @@ function startGame(gameId, ip) {
 		} catch (e) {
 			// freedom
 		}
+	}
+}
+
+function checkStatus(){
+	if(message.data == "You are winner!") {
+		$('#gameStarted').remove();
+		$("#gameInfo").append('<div class="alert alert-success"><strong>Success!</strong> You won the game!</div>');
+		var replayBtn = $('<button type="submit" class="btn btn-lg btn-primary center-block">Play again</button>');
+        $("#replay").append(replayBtn);
+	}
+	if(message.data == "You are lose!") {
+		$('#gameStarted').remove();
+		$("#gameInfo").append('<div class="alert alert-danger"><strong>Bad!</strong> You lost the game!</div>');
+		var replayBtn = $('<button type="submit" class="btn btn-lg btn-primary center-block">Play again</button>');
+        $("#replay").append(replayBtn);
+	}
+	if(message.data == "Draw.") {
+		$('#gameStarted').remove();
+		$("#gameInfo").append('<div class="alert alert-warning"><strong>Its a tie!</strong> No one wins!</div>');
+		var replayBtn = $('<button type="submit" class="btn btn-lg btn-primary center-block">Play again</button>');
+        $("#replay").append(replayBtn);
 	}
 }
 
