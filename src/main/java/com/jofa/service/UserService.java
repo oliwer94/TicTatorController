@@ -14,6 +14,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.jofa.model.LoginAttempt;
+import com.jofa.model.SimpleUser;
 import com.jofa.model.User;
 import com.jofa.utils.Constants;
 import com.jofa.utils.PropertiesUtil;
@@ -67,8 +68,9 @@ public class UserService
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		HttpEntity<User> entity = new HttpEntity<User>(user, headers);
-		ResponseEntity<User> response = PostJson(entity, URL+ Constants.U_SERVICE_REGISTER, User.class);
+		SimpleUser sUser = new SimpleUser(user.getUsername(), user.getPassword(), user.getEmail());
+		HttpEntity<SimpleUser> entity = new HttpEntity<SimpleUser>(sUser, headers);
+		ResponseEntity<User> response = PostJson(entity, URL+ Constants.U_SERVICE_REGISTER, SimpleUser.class);
 		if (response.getStatusCode().equals(HttpStatus.OK))
 		{
 			return true;

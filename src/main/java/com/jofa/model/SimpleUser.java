@@ -1,20 +1,18 @@
-package com.jofa.simpleuser;
-
-import com.jofa.model.User;
+package com.jofa.model;
 
 public class SimpleUser {
 	private String username;
 	private String password;
-	private boolean admin;
+	private String email;
 	
 	public SimpleUser() {
 		super();
 	}
-	public SimpleUser(String username, String password,boolean admin) {
+	public SimpleUser(String username, String password, String email) {
 		super();
 		this.username = username;
 		this.password = password;
-		this.admin = admin;
+		this.email = email;
 	}
 	public String getUsername() {
 		return username;
@@ -28,11 +26,11 @@ public class SimpleUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public boolean getAdmin() {
-		return admin;
+	public String getEmail() {
+		return email;
 	}
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

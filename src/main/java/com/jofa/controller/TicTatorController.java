@@ -34,12 +34,12 @@ public class TicTatorController
 	public String login(HttpServletRequest request, User user, Model model) throws IOException
 	{
 		model.addAttribute("currentUser", new User());
-		model.addAttribute("registerUser", new User("email", "password", "username"));
+		model.addAttribute("registerUser", new User());
 		return Views.LOGIN_PAGE;
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register(HttpServletRequest request, User user) throws IOException
+	public String register(HttpServletRequest request, User user, Model model) throws IOException
 	{
 		String view = Views.REGISTER_SUCCESS;
 		if (UserService.registerUser(request, user) != true)
@@ -49,6 +49,8 @@ public class TicTatorController
 		if(MatchMakingService.register(user) != true) {
 			return Views.REGISTER_FAIL;
 		}
+		model.addAttribute("currentUser", new User());
+		model.addAttribute("registerUser", new User("email", "password", "username"));
 		return view;
 	}
 	

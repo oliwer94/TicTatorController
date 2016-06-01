@@ -17,6 +17,7 @@
 		<put-attribute name="body" value="/WEB-INF/view/pages/503.jsp"></put-attribute>
 	</definition>
 	<definition name="registerSuccess" extends="base.definition">
+		<put-attribute name="header" value="/WEB-INF/view/loginHeader.jsp"></put-attribute>
 		<put-attribute name="body" value="/WEB-INF/view/pages/registerSuccess.jsp"></put-attribute>
 	</definition>
 	<definition name="403" extends="base.definition">

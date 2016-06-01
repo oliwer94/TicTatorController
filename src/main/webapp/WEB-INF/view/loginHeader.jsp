@@ -24,10 +24,10 @@
 				action="${pageContext.request.contextPath}/j_spring_security_check"
 				method="POST">
 				<div class="form-group">
-					<form:input class="form-control" path="username" value="turbek"></form:input>
+					<form:input class="form-control" path="username" value=""></form:input>
 				</div>
 				<div class="form-group">
-					<form:input type="password" class="form-control" value="turbek"
+					<form:input type="password" class="form-control" value=""
 						path="password"></form:input>
 				</div>
 				<button type="submit" class="btn btn-default pull-right">Sign
