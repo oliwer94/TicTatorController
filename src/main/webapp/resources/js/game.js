@@ -5,7 +5,7 @@ function startGame(gameId, ip) {
 	$('#gameInfo').append('<div id="gameStarted" class="alert alert-info"><strong>Game started!</strong></div>');
 	$('#gameId').val(gameId);
 	websocket = new WebSocket("ws://" + ip
-			+ ":8080/TicTatorGame-1.0-SNAPSHOT/gameServerEndpoint/" + gameId
+			+ ":8080/TicTatorGame/gameServerEndpoint/" + gameId
 			+ "/" + $('#username').val());
 	websocket.onmessage = function processMessage(message) {
 		console.log(message.data);

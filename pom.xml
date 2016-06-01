@@ -173,21 +173,6 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- TicTator dependencies -->
-		<dependency>
-			<groupId>tictator.user</groupId>
-			<artifactId>com.tictator.user</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/lib/TicTatorUser.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>tictator.user</groupId>
-			<artifactId>com.tictator.gameobject</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/resources/lib/TicTatorMatchMaking_GameObject.jar</systemPath>
-		</dependency>
 		
 	</dependencies>
 
