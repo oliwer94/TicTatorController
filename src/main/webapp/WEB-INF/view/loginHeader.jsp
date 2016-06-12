@@ -7,18 +7,17 @@
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				data-toggle="collapse" data-target="#navbar-main" aria-expanded="false"
 				aria-controls="navbar">
 				<span class="sr-only">Toggle navigation</span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="${pageContext.request.contextPath}">TicTator</a>
+			<button class="btn btn-default" data-toggle="modal" style="margin-top:8px;" data-target="#register-modal">Not registered?</button>
 		</div>
 		<div class="navbar-collapse collapse" id="navbar-main">
-			<ul class="nav navbar-nav pull-right">
-				<li><a data-toggle="modal" data-target="#register-modal">Not registered?</a></li>
-			</ul>
+			<ul>
 			<form:form class="navbar-form navbar-right" id="form-login"
 				name="form-login" modelAttribute="currentUser"
 				action="${pageContext.request.contextPath}/j_spring_security_check"
@@ -33,6 +32,7 @@
 				<button type="submit" class="btn btn-default pull-right">Sign
 					In</button>
 			</form:form>
+			</ul>
 		</div>
 	</div>
 </nav>
